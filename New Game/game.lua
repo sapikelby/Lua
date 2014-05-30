@@ -27,7 +27,7 @@ end
 function game.draw()
 	-- draw moving background
 	for i=0,4 do
-		for j=1,6 do
+		for j=-1,4 do
 			love.graphics.draw(imgs["background"], i*32*scale, (j+game.clock%1)*32*scale, 0,scale, scale)
 		end
 	end
@@ -47,9 +47,9 @@ function game.draw()
 
 	-- draw game.bullets
 	for _,v in ipairs(game.bullets) do
-		love.graphics.draw(imgs["bullet"], v.x, v.y,0,scale,scale,game.bullet_size/2, game.bullet_size/2)
+		love.graphics.draw(imgs["bullet"],v.x,v.y,0,scale,scale,game.bullet_size/2, game.bullet_size/2)
 
-		if debug then love.graphics.circle("line", v.x, v.y, game.bullet_size/2*scale)
+		if debug then love.graphics.circle("line",v.x, v.y, game.bullet_size/2*scale)
 		end
 	end
 end
@@ -87,6 +87,23 @@ function game.update(dt)
 		end
 	end
 
+
+	-- update player movement
+	if love.keyboard.isDown("right") then
+		game.playerx = game.playerx + 100*dt*scale
+	end
+	if love.keyboard.isDown("left") then
+		game.playerx = game.playerx - 100*dt*scale
+	end
+
+	-- keep the player on the map
+	if game.playerx > 160*scale then
+		game.playerx = 160*scale
+	end
+	if game.playerx < 0 then
+		game.playerx = 0
+	end
+
 	-- update bullets
 	for bi,bv in ipairs(game.bullets) do
 		bv.y = bv.y - 100*dt*scale
@@ -104,27 +121,29 @@ function game.update(dt)
 		end
 	end
 
+	-- update player ammunition 
+	game.recharge_dt = game.recharge_dt + dt
+	if game.recharge_dt > game.recharge_rate then 
+		game.recharge_dt = game.recharge_dt - game.recharge_rate
+		game.ammo = game.ammo + 1
 
-	-- update player movement
-	if love.keyboard.isDown("right") then
-		game.playerx = game.playerx + 100*dt*scale
-	end
-	if love.keyboard.isDown("left") then
-		game.playerx = game.playerx - 100*dt*scale
-	end
-
-	-- keep the player on the map
-	if game.playerx > 160*scale then
-		game.playerx = 160*scale
-	end
-	if game.playerx < 0 then
-		game.playerx = 0
+		if game.ammo > 10 then 
+			game.ammo = 10
+		end
 	end
 end
 
 function game.keypressed(dt)
-	-- change to game state, and init game
-	--state = "game"
+	 -- Shoot a bullet
+  if key == " " and game.ammo > 0 then
+    love.audio.play(shoot)
+    game.ammo = game.ammo - 1
+    local bullet = {}
+    bullet.x = game.playerx
+    bullet.y = game.playery
+    table.insert(game.bullets,bullet)
+  end
+  
 end
 
 -- Distance formula
