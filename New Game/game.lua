@@ -9,6 +9,19 @@ function game.load()
 	game.enemies = {}
 	game.enemy_dt = 0
 	game.enemy_rate = 2
+
+	-- player init
+	game.player_size = imgs["player"]:getWidth()
+	game.playerx = (160/2)*scale
+	game.playery = (144-12)*scale
+
+	-- bullet init
+	game.ammo = 10
+	game.recharge_dt = 0
+	game.recharge_rate = 1
+	game.bullet_size = imgs["bullet"]:getWidth()
+	game.bullets = {}
+
 end
 
 function game.draw()
@@ -24,6 +37,19 @@ function game.draw()
 		love.graphics.draw(imgs["enemy"], v.x,v.y, 0, scale, scale, game.enemy_size/2, game.enemy_size/2)
 
 		if debug then love.graphics.circle("line", v.x, v.y, game.enemy_size/2*scale)
+		end
+	end
+
+	-- draw player 
+	love.graphics.draw(imgs["player"], game.playerx, game.playery,0,scale,scale,game.player_size/2,game.player_size/2)
+	if debug then love.graphics.circle("line", game.playerx, game.playery, game.player_size/2*scale)
+	end
+
+	-- draw game.bullets
+	for _,v in ipairs(game.bullets) do
+		love.graphics.draw(imgs["bullet"], v.x, v.y,0,scale,scale,game.bullet_size/2, game.bullet_size/2)
+
+		if debug then love.graphics.circle("line", v.x, v.y, game.bullet_size/2*scale)
 		end
 	end
 end
@@ -52,10 +78,56 @@ function game.update(dt)
 		if ev.y > 144*scale then -- remove enemy if it falls below player
 			table.remove(game.enemies,ei)
 		end
+
+		-- if player gets to close to enemy (player loses)
+		-- player size = 24 and enemy size = 12, half of each to determine whether they are touching from center (12+8)
+		if game.dist(game.playerx, game.playery, ev.x, ev.y) < (12+8)*scale then
+			splash.load()
+			state = "splash"
+		end
+	end
+
+	-- update bullets
+	for bi,bv in ipairs(game.bullets) do
+		bv.y = bv.y - 100*dt*scale
+		-- bullet has gone off the screen
+		if bv.y < 0 then
+			table.remove(game.bullets, bi)
+		end
+
+		-- update bullets with game.enemies (dead enemies)
+		for ei,ev in ipairs(game.enemies) do
+			if game.dist(bv.x, bv.y, ev.x, ev.y) < (2+8)*scale then
+				table.remove(game.enemies, ei)
+				table.remove(game.bullets, bi)
+			end
+		end
+	end
+
+
+	-- update player movement
+	if love.keyboard.isDown("right") then
+		game.playerx = game.playerx + 100*dt*scale
+	end
+	if love.keyboard.isDown("left") then
+		game.playerx = game.playerx - 100*dt*scale
+	end
+
+	-- keep the player on the map
+	if game.playerx > 160*scale then
+		game.playerx = 160*scale
+	end
+	if game.playerx < 0 then
+		game.playerx = 0
 	end
 end
 
 function game.keypressed(dt)
 	-- change to game state, and init game
 	--state = "game"
+end
+
+-- Distance formula
+function game.dist(x1,y1,x2,y2)
+	return math.sqrt((x1-x2)^2 + (y1-y2)^2)
 end
