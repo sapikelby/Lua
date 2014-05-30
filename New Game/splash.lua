@@ -32,5 +32,5 @@ end
 function splash.keypressed(key)
 	-- change to game state, and initialize game
 	state = "game"
-
+	game.load()
 end
