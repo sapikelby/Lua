@@ -95,13 +95,28 @@ function game.update(dt)
 	if love.keyboard.isDown("left") then
 		game.playerx = game.playerx - 100*dt*scale
 	end
+	if love.keyboard.isDown("up") then
+		game.playery = game.playery - 100*dt*scale
+	end
+	if love.keyboard.isDown("down") then
+		game.playery = game.playery + 100*dt*scale
+	end
 
 	-- keep the player on the map
+	-- along x-axis
 	if game.playerx > 160*scale then
 		game.playerx = 160*scale
 	end
 	if game.playerx < 0 then
 		game.playerx = 0
+	end
+
+	-- along y-axis
+	if game.playery > 144*scale then
+		game.playery = 144*scale
+	end
+	if game.playery < 0 then 
+		game.playery = 0
 	end
 
 	-- update bullets
@@ -134,16 +149,19 @@ function game.update(dt)
 end
 
 function game.keypressed(key)
-  -- Shoot a bullet
+	 -- Shoot a bullet
   if key == " " and game.ammo > 0 then
     love.audio.play(shoot)
     game.ammo = game.ammo - 1
     local bullet = {}
     bullet.x = game.playerx
     bullet.y = game.playery
-    table.insert(game.bullets,bullet)
+    table.insert(game.bullets, bullet)
   end
 end
+
+
+
 
 -- Distance formula
 function game.dist(x1,y1,x2,y2)
