@@ -22,6 +22,9 @@ function game.load()
 	game.bullet_size = imgs["bullet"]:getWidth()
 	game.bullets = {}
 
+	-- info init (score, etc)
+	game.score = 0
+
 end
 
 function game.draw()
@@ -52,6 +55,16 @@ function game.draw()
 		if debug then love.graphics.circle("line",v.x, v.y, game.bullet_size/2*scale)
 		end
 	end
+
+	-- draw game info
+	love.graphics.setColor(fontcolor.r, fontcolor.g, fontcolor.b)
+	love.graphics.printf("Score:"..game.score.." Ammo:"..game.ammo,0,0,love.graphics.getWidth(), "center")
+
+	if debug then love.graphics.print("enemies: "..#game.enemies.."\nbullets:"..#game.bullets.."\nenemy_rate:"..game.enemy_rate.."\nFPS:"..
+		love.timer.getFPS(),0,14*scale)
+	end
+
+	love.graphics.setColor(255,255,255)
 end
 
 function game.update(dt)
@@ -81,7 +94,8 @@ function game.update(dt)
 
 		-- if player gets to close to enemy (player loses)
 		-- player size = 24 and enemy size = 12, half of each to determine whether they are touching from center (12+8)
-		if game.dist(game.playerx, game.playery, ev.x, ev.y) < (12+8)*scale then
+		--if game.dist(game.playerx, game.playery, ev.x, ev.y) < (12+8)*scale then
+		if game.dist(game.playerx, game.playery, ev.x, ev.y) < (game.player_size/2+game.enemy_size/2)*scale then
 			splash.load()
 			state = "splash"
 		end
@@ -129,7 +143,9 @@ function game.update(dt)
 
 		-- update bullets with game.enemies (dead enemies)
 		for ei,ev in ipairs(game.enemies) do
-			if game.dist(bv.x, bv.y, ev.x, ev.y) < (2+8)*scale then
+			--if game.dist(bv.x, bv.y, ev.x, ev.y) < (2+8)*scale then
+			if game.dist(bv.x, bv.y, ev.x, ev.y) < (game.bullet_size/2+game.enemy_size/2)*scale then
+				game.score = game.score + 1
 				table.remove(game.enemies, ei)
 				table.remove(game.bullets, bi)
 			end

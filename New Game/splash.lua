@@ -14,6 +14,11 @@ function splash.draw()
 		love.graphics.printf("Press Start", 0, 80*scale, love.graphics.getWidth(), "center")
 	end
 
+	-- if game ends (show user their game score)
+	if game.score ~= 0 then 
+		love.graphics.printf("Score: "..game.score,0,96*scale,160*scale,"center")
+	end
+
 	-- reset the color
 	love.graphics.setColor(255,255,255)
 end
