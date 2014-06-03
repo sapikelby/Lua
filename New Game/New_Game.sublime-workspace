@@ -3,10 +3,51 @@
 	{
 		"selected_items":
 		[
+			[
+				"enemy",
+				"enemy_dt"
+			],
+			[
+				"for",
+				"fori	for i,v in ipairs()"
+			]
 		]
 	},
 	"buffers":
 	[
+		{
+			"file": "conf.lua",
+			"settings":
+			{
+				"buffer_size": 165,
+				"line_ending": "Windows",
+				"name": "-- Game Scale"
+			}
+		},
+		{
+			"file": "splash.lua",
+			"settings":
+			{
+				"buffer_size": 751,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "main.lua",
+			"settings":
+			{
+				"buffer_size": 1958,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "game.lua",
+			"settings":
+			{
+				"buffer_size": 3772,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "Packages/User/lua.sublime-build",
 	"command_palette":
@@ -35,7 +76,13 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Kelby/AppData/Local/Temp/Rar$DRa0.751/7 - bullets and ammo/main.lua",
+		"/C/Users/Kelby/AppData/Local/Temp/Rar$DRa0.630/3 - splash/splash.lua",
+		"/C/Users/Kelby/AppData/Local/Temp/Rar$DRa0.753/2 - background/main.lua",
 		"/C/Users/Kelby/Documents/GitHub/Lua/main.lua",
+		"/C/Users/Kelby/AppData/Local/Temp/Rar$DRa0.535/2 - background/main.lua",
+		"/C/Users/Kelby/AppData/Local/Temp/Rar$DRa0.816/1 - config/main.lua",
+		"/C/Users/Kelby/Documents/GitHub/Lua/New Game/New_Game.sublime-project",
 		"/C/Users/Kelby/AppData/Local/Temp/Rar$DRa0.063/tut1/main.lua",
 		"/C/Users/Kelby/Desktop/Sublime Text Build 3047/Data/Packages/User/lua.sublime-build",
 		"/C/Users/Kelby/gitconfig",
@@ -88,8 +135,121 @@
 	"groups":
 	[
 		{
+			"selected": 3,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "conf.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 165,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								165,
+								165
+							]
+						],
+						"settings":
+						{
+							"auto_name": "-- Game Scale",
+							"syntax": "Packages/Lua/Lua.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "splash.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 751,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								576,
+								576
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/Lua/Lua.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "main.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1958,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1762,
+								1762
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/Lua/Lua.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "game.lua",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3772,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3514,
+								3514
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/Lua/Lua.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1722.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
